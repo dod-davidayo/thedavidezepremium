@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Area — Private Gallery Login | TheDavidEze Photography</title>
+<meta name="description" content="Access your private photography gallery and delivered collections from TheDavidEze Photography. Secure client login requires backend authentication.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://www.thedavideze.example/client-area">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0B0B'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23B3945A'%3EDE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .gate { min-height: 100svh; display: grid; place-items: center; padding: clamp(1.5rem,5vw,3rem); background: var(--ink); color: var(--paper); }
+  .gate__card { width: min(460px, 100%); display: grid; gap: 1.6rem; }
+  .gate__bg { position: fixed; inset: 0; z-index: -1; }
+  .gate__bg img { width: 100%; height: 100%; object-fit: cover; opacity: .18; filter: saturate(.6); }
+  .vault-grid { display: grid; gap: 1.2rem; }
+  @media (min-width: 900px) { .vault-grid { grid-template-columns: repeat(3, 1fr); } }
+  .vault-card { background: #fff; border: 1px solid var(--line); display: grid; }
+  .vault-card__media { aspect-ratio: 4/3; overflow: hidden; background: var(--warm-2); }
+  .vault-card__body { padding: 1.1rem 1.2rem 1.3rem; display: grid; gap: .5rem; }
+  .progress { height: 3px; background: var(--warm-2); overflow: hidden; }
+  .progress i { display: block; height: 100%; background: var(--gold); }
+</style>
+</head>
+<body data-page="client">
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header is-solid">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html" aria-label="TheDavidEze Photography — home">
+      <span class="brand__mark" aria-hidden="true">DE</span>
+      <span class="brand__text"><span class="brand__name">TheDavidEze</span><span class="brand__tag">Photography</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link nav-link-underline" data-nav href="index.html">Home</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="about.html">About</a></li>
+        <li><a class="nav-link nav-link-underline" data-nav href="portfolio.html">Portfolio</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="services.html">Services &amp; Pricing</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="faq.html">Client Care</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--gold btn--sm header-cta" href="booking.html">Book a session</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open navigation menu">
+      <span class="burger__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav class="drawer__nav" aria-label="Mobile navigation">
+    <a class="drawer__link" data-nav href="index.html"><span class="drawer__num">01</span> Home</a>
+    <a class="drawer__link" data-nav href="about.html"><span class="drawer__num">02</span> About</a>
+    <a class="drawer__link" data-nav href="portfolio.html"><span class="drawer__num">03</span> Portfolio</a>
+    <a class="drawer__link" data-nav href="services.html"><span class="drawer__num">04</span> Services &amp; Pricing</a>
+    <a class="drawer__link" data-nav href="faq.html"><span class="drawer__num">05</span> Client Care</a>
+    <a class="drawer__link" data-nav href="contact.html"><span class="drawer__num">06</span> Contact</a>
+    <a class="drawer__link" data-nav href="client-area.html"><span class="drawer__num">07</span> Client Area</a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--gold btn--block" href="booking.html">Book a session</a>
+    <div class="drawer__social" data-social="name"></div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ================= LOGIN GATE ================= -->
+  <section class="gate" aria-labelledby="gate-title">
+    <div class="gate__bg" aria-hidden="true">
+      <img src="https://images.pexels.com/photos/36862797/pexels-photo-36862797.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="eager" decoding="async">
+    </div>
+
+    <div class="gate__card" id="gate">
+      <a class="brand" href="index.html" style="color:var(--paper)" aria-label="TheDavidEze Photography — home">
+        <span class="brand__mark" aria-hidden="true">DE</span>
+        <span class="brand__text"><span class="brand__name">TheDavidEze</span><span class="brand__tag">Photography</span></span>
+      </a>
+
+      <div class="stack">
+        <p class="eyebrow eyebrow--onDark">Client Area</p>
+        <h1 id="gate-title" style="font-size:var(--step-3)">Your private<br><span class="display-serif-italic">galleries.</span></h1>
+        <p style="color:rgba(251,249,244,.7);font-size:.95rem">
+          Delivered collections, downloads, favourites and print ordering — all in one secure place.
+        </p>
+      </div>
+
+      <form class="form" id="gate-form" novalidate>
+        <div class="field" data-field="gemail">
+          <label class="field__label" for="g-email" style="color:rgba(251,249,244,.55)">Email address</label>
+          <input class="input" type="email" id="g-email" name="email" autocomplete="username"
+                 placeholder="The email you booked with" aria-describedby="g-email-err">
+          <p class="field__error" id="g-email-err"></p>
+        </div>
+        <div class="field" data-field="gpass">
+          <label class="field__label" for="g-pass" style="color:rgba(251,249,244,.55)">Access code or password</label>
+          <input class="input" type="password" id="g-pass" name="password" autocomplete="current-password"
+                 placeholder="Provided when your gallery was delivered" aria-describedby="g-pass-err">
+          <p class="field__error" id="g-pass-err"></p>
+        </div>
+        <button class="btn btn--gold btn--block" type="submit" id="g-submit">Open my galleries</button>
+        <p class="field__hint" style="color:rgba(251,249,244,.4);font-size:.74rem">
+          Lost your access code? <a href="contact.html" style="text-decoration:underline">Contact the studio</a>.
+        </p>
+      </form>
+
+      <div class="notice notice--onDark">
+        <span class="notice__ico" aria-hidden="true">🔒</span>
+        <p><b>Concept only — no authentication exists.</b> This login is a front-end mock-up. It does not verify
+           anything, and any credentials entered are never transmitted or stored. A production client area requires
+           a real backend with hashed passwords, per-client authorisation, expiring signed download URLs and
+           encrypted image storage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= POST-LOGIN CONCEPT ================= -->
+  <section class="section is-hidden" id="vault" aria-labelledby="vault-title">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="eyebrow">Signed in</p>
+          <h1 id="vault-title" style="font-size:var(--step-3)">Your delivered<br><span class="display-serif-italic">collections.</span></h1>
+        </div>
+        <div class="head-aside" style="display:grid;gap:.8rem;justify-items:end">
+          <span class="badge badge--pending">demonstration session</span>
+          <button class="btn btn--outline btn--sm" type="button" id="g-logout">Sign out</button>
+        </div>
+      </div>
+
+      <div class="notice notice--warn" style="margin-bottom:2.5rem">
+        <span class="notice__ico" aria-hidden="true">!</span>
+        <p><b>Nothing here is private.</b> Because there is no server, no login and no per-client permission check,
+           everything below is visible to anyone. Do not store real client photographs behind an interface like this —
+           it must be built with genuine authentication first.</p>
+      </div>
+
+      <div class="vault-grid" id="vault-grid"></div>
+
+      <div class="section section--tight" style="padding-block:3rem">
+        <div class="stack stack--lg">
+          <p class="eyebrow">How this must be built</p>
+          <h2>Required for a real private gallery</h2>
+          <div class="grid grid--3">
+            <article class="service-card">
+              <span class="service-card__num">Requirement 01</span>
+              <h3>Authentication</h3>
+              <p>Server-side sessions or JWTs, bcrypt/argon2 password hashing, rate limiting and lockout on repeated failures. Magic-link email sign-in is a good alternative to passwords.</p>
+            </article>
+            <article class="service-card">
+              <span class="service-card__num">Requirement 02</span>
+              <h3>Authorisation</h3>
+              <p>Every request must check that the signed-in user actually owns the gallery being requested. Client A must never be able to guess or open Client B's URL.</p>
+            </article>
+            <article class="service-card">
+              <span class="service-card__num">Requirement 03</span>
+              <h3>Signed, expiring URLs</h3>
+              <p>Serve images from object storage (S3, Cloudflare R2) via short-lived signed URLs. Never expose a predictable public path to private files.</p>
+            </article>
+            <article class="service-card">
+              <span class="service-card__num">Requirement 04</span>
+              <h3>Encrypted storage</h3>
+              <p>Encrypt the archive at rest and in transit. Keep at least two geographically separate backups of every delivered collection.</p>
+            </article>
+            <article class="service-card">
+              <span class="service-card__num">Requirement 05</span>
+              <h3>Watermarking &amp; rights</h3>
+              <p>Optional preview watermarks, download limits, and an auditable record of what each client downloaded and when.</p>
+            </article>
+            <article class="service-card">
+              <span class="service-card__num">Requirement 06</span>
+              <h3>Data protection</h3>
+              <p>Comply with the Nigeria Data Protection Act 2023: a privacy notice, consent records, data-retention limits and a documented deletion process on request.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__bottom" style="margin-top:0;padding-top:3rem">
+      <p>© <span data-year>2026</span> TheDavidEze Photography. All rights reserved.</p>
+      <nav aria-label="Legal"><a href="faq.html#policies">Policies</a><a href="booking.html">Booking</a><a href="admin.html">Admin demo</a></nav>
+      <p>Designed &amp; engineered by <a href="#" style="border-bottom:1px solid rgba(251,249,244,.25)">TheVials Services</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 13V1M1 6l5-5 5 5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+</button>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/render.js"></script>
+<script>
+/* ==========================================================================
+   Client area — a front-end mock-up of a private gallery login.
+   ⚠️ No authentication happens here. Any input is accepted.
+   ========================================================================== */
+(function () {
+  const form = $("#gate-form");
+  if (!form) return;
+
+  const fail = (key, m) => {
+    const f = $('[data-field="' + key + '"]');
+    if (!f) return;
+    f.classList.add("is-invalid");
+    const e = $(".field__error", f); if (e) e.textContent = m;
+  };
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    $$(".field", form).forEach(f => f.classList.remove("is-invalid"));
+
+    const d = new FormData(form);
+    let bad = false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test((d.get("email") || "").trim())) { fail("gemail", "Enter a valid email address."); bad = true; }
+    if (!(d.get("password") || "").trim()) { fail("gpass", "Enter your access code."); bad = true; }
+    if (bad) { APP.toast("Enter your email and access code.", "err"); return; }
+
+    const btn = $("#g-submit"), original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loader" aria-hidden="true"></span> Verifying';
+
+    setTimeout(() => {
+      btn.disabled = false; btn.innerHTML = original;
+      // Any credentials are accepted — because nothing is actually verified.
+      buildVault();
+    }, 1100);
+  });
+
+  function buildVault() {
+    $("#gate").classList.add("is-hidden");
+    const v = $("#vault");
+    v.classList.remove("is-hidden");
+
+    const sets = [
+      { title: "Amara & Tunde — Wedding", date: "November 2025", cover: 36725414, count: 900, done: 100, status: "Delivered" },
+      { title: "Pre-wedding session", date: "September 2025", cover: 30822485, count: 140, done: 100, status: "Delivered" },
+      { title: "Monochrome portrait study", date: "September 2025", cover: 28751624, count: 40, done: 100, status: "Delivered" },
+      { title: "The Long Table — 60th birthday", date: "December 2025", cover: 19203827, count: 300, done: 62, status: "In progress" },
+      { title: "Brand headshots", date: "January 2026", cover: 33539340, count: 24, done: 0, status: "Editing" },
+      { title: "Maison Noir campaign", date: "August 2025", cover: 7075055, count: 120, done: 100, status: "Delivered" },
+    ];
+
+    const badge = (s) => s === "Delivered" ? "badge--live" : s === "In progress" ? "badge--pending" : "badge--draft";
+
+    $("#vault-grid").innerHTML = sets.map(s => `
+      <article class="vault-card">
+        <div class="vault-card__media">
+          <img src="${CONFIG.img(s.cover, 600)}" srcset="${CONFIG.imgSet(s.cover)}" sizes="(max-width:900px) 100vw, 33vw"
+               alt="${UTIL.esc(s.title)} — delivered gallery preview image" loading="lazy" decoding="async">
+        </div>
+        <div class="vault-card__body">
+          <div style="display:flex;justify-content:space-between;gap:.6rem;align-items:baseline">
+            <h2 style="font-size:1.05rem">${UTIL.esc(s.title)}</h2>
+            <span class="badge ${badge(s)}">${s.status}</span>
+          </div>
+          <p class="text--xs text--muted">${UTIL.esc(s.date)} · ${s.count} images · ${s.done}% ready</p>
+          <div class="progress" role="progressbar" aria-valuenow="${s.done}" aria-valuemin="0" aria-valuemax="100"
+               aria-label="${UTIL.esc(s.title)} delivery progress">
+            <i style="width:${s.done}%"></i>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+            <button class="mini-btn mini-btn--gold" type="button" data-open-gallery>Open gallery</button>
+            <button class="mini-btn" type="button" data-open-gallery>Download all</button>
+            <button class="mini-btn" type="button" data-open-gallery>Order prints</button>
+          </div>
+        </div>
+      </article>`).join("");
+
+    // Gallery buttons open the shared lightbox so every control does something
+    const list = [13305426, 36725414, 27499475, 32310177, 40130306, 34294438].map(id => ({
+      src: CONFIG.img(id, 1500), thumb: CONFIG.img(id, 200, 200), srcset: CONFIG.imgSet(id),
+      title: "Delivered gallery — demonstration", caption: "Placeholder imagery standing in for a real private collection"
+    }));
+    $$("[data-open-gallery]").forEach(b => b.addEventListener("click", () => APP.openLightbox(list, 0)));
+
+    $("#g-logout").addEventListener("click", () => {
+      v.classList.add("is-hidden");
+      $("#gate").classList.remove("is-hidden");
+      form.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    v.scrollIntoView({ behavior: "smooth", block: "start" });
+    APP.toast("Demonstration session opened — no authentication performed");
+  }
+})();
+</script>
+</body>
+</html>

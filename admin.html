@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Admin — Dashboard Demonstration | TheDavidEze Photography</title>
+<meta name="description" content="Studio administration dashboard demonstration for TheDavidEze Photography: bookings, enquiries, calendar, services, pricing, portfolio and revenue. Concept only — no data is stored.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://www.thedavideze.example/admin">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0B0B'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23B3945A'%3EDE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* Admin-local refinements on top of the shared design system */
+  .admin-tabs { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .4rem; }
+  .admin-tabs button {
+    font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
+    padding: .55rem .95rem; border: 1px solid var(--line); color: var(--taupe);
+  }
+  .admin-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .admin-view { display: none; }
+  .admin-view.is-active { display: grid; gap: 1.4rem; animation: fadeUp .45s var(--ease-out) both; }
+  .admin-grid { display: grid; gap: 1.4rem; }
+  @media (min-width: 1200px) {
+    .admin-grid--2 { grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); }
+    .admin-grid--3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+  .mix-bar { display: grid; gap: .8rem; }
+  .mix-row { display: grid; grid-template-columns: 84px 1fr 44px; gap: .8rem; align-items: center; font-size: .78rem; }
+  .mix-row__track { height: 7px; background: var(--warm-2); }
+  .mix-row__fill { height: 100%; background: linear-gradient(to right, var(--ink), var(--ink-4)); }
+  .detail-drawer {
+    position: fixed; inset: 0; z-index: 400; display: grid; grid-template-columns: 1fr minmax(0, 520px);
+    background: rgba(6,6,6,.6); backdrop-filter: blur(2px);
+  }
+  @media (max-width: 900px) { .detail-drawer { grid-template-columns: 1fr; } }
+  .detail-drawer__panel {
+    grid-column: 2; background: var(--paper); padding: clamp(1.2rem, 3vw, 2rem);
+    overflow-y: auto; display: grid; gap: 1.1rem; align-content: start;
+    animation: drawerIn .4s var(--ease-out) both;
+  }
+  @media (max-width: 900px) { .detail-drawer__panel { grid-column: 1; } }
+  .price-input { width: 100%; padding: .55rem .7rem; border: 1px solid var(--line); font: inherit; font-size: .9rem;
+                 font-variant-numeric: tabular-nums; }
+  .price-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-wash); }
+  @keyframes drawerIn { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+</style>
+</head>
+<body data-page="admin">
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ================= AUTH GATE ================= -->
+<div class="authgate" id="authgate">
+  <div style="width:min(440px,100%);display:grid;gap:1.6rem">
+    <a class="brand" href="index.html" style="color:var(--paper)" aria-label="TheDavidEze Photography — home">
+      <span class="brand__mark" aria-hidden="true">DE</span>
+      <span class="brand__text"><span class="brand__name">TheDavidEze</span><span class="brand__tag">Photography</span></span>
+    </a>
+
+    <div class="authgate__card">
+      <div class="stack">
+        <p class="eyebrow eyebrow--onDark">Studio Administration</p>
+        <h1 style="font-size:var(--step-2)">Sign in to the<br><span class="display-serif-italic">dashboard.</span></h1>
+        <p style="font-size:.88rem;color:rgba(251,249,244,.6)">
+          Demonstration passcode: <b style="color:var(--gold-soft)">davideze-demo</b>
+        </p>
+      </div>
+
+      <form class="form" id="admin-login" novalidate>
+        <div class="field">
+          <label class="field__label" for="ad-user">Email or username</label>
+          <input class="input" type="text" id="ad-user" value="studio@thedavideze.example" autocomplete="username">
+        </div>
+        <div class="field" data-field="adpass">
+          <label class="field__label" for="ad-pass">Passcode</label>
+          <input class="input" type="password" id="ad-pass" placeholder="Enter the demo passcode"
+                 autocomplete="current-password" aria-describedby="ad-pass-err">
+          <p class="field__error" id="ad-pass-err"></p>
+        </div>
+        <button class="btn btn--gold btn--block" type="submit">Sign in</button>
+      </form>
+
+      <div class="notice notice--onDark">
+        <span class="notice__ico" aria-hidden="true">⚠</span>
+        <p><b>This is not real security.</b> The passcode below is hard-coded in the page source and is visible to
+           anyone who opens the developer tools. It exists only to demonstrate the sign-in flow. A production admin
+           area must use real server-side authentication, HTTPS, hashed passwords, role-based access control,
+           audit logging and session expiry.</p>
+      </div>
+    </div>
+
+    <p style="font-size:.74rem;color:rgba(251,249,244,.42)">
+      <a href="index.html" style="text-decoration:underline">← Back to the website</a>
+    </p>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div class="admin is-hidden" id="admin">
+  <aside class="admin__rail">
+    <a class="admin__brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">DE</span>
+      <span class="brand__text"><span class="brand__name">TheDavidEze</span><span class="brand__tag">Studio Admin</span></span>
+    </a>
+
+    <nav class="admin__nav" id="admin-nav" aria-label="Dashboard sections">
+      <button type="button" data-view="overview" aria-current="true">◈ &nbsp;Overview</button>
+      <button type="button" data-view="bookings">◈ &nbsp;Bookings <span class="num" data-count="bookings"></span></button>
+      <button type="button" data-view="calendar">◈ &nbsp;Calendar</button>
+      <button type="button" data-view="enquiries">◈ &nbsp;Enquiries <span class="num" data-count="enquiries"></span></button>
+      <button type="button" data-view="services">◈ &nbsp;Services &amp; pricing</button>
+      <button type="button" data-view="portfolio">◈ &nbsp;Portfolio</button>
+      <button type="button" data-view="revenue">◈ &nbsp;Revenue</button>
+      <button type="button" data-view="settings">◈ &nbsp;Settings</button>
+    </nav>
+
+    <div class="stack stack--sm" style="margin-top:auto">
+      <div class="notice notice--onDark" style="grid-template-columns:1fr;padding:.9rem 1rem">
+        <p style="font-size:.72rem"><b>Not persisted.</b> Every figure in this dashboard is fictional demonstration
+          data held only in the browser's memory. Refreshing the page resets it. Connect a database before treating
+          any of it as real.</p>
+      </div>
+      <button class="btn btn--light btn--sm btn--block" type="button" id="admin-logout">Sign out</button>
+      <a href="index.html" style="font-size:.74rem;color:rgba(251,249,244,.5);text-align:center">View public website →</a>
+    </div>
+  </aside>
+
+  <div class="admin__main" id="main">
+    <div class="admin__topbar">
+      <div class="admin__title">
+        <h1 id="view-title">Overview</h1>
+        <p id="view-sub">Studio performance at a glance — demonstration data</p>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">
+        <span class="badge badge--pending badge--dot">demo session</span>
+        <button class="mini-btn mini-btn--gold" type="button" id="seed-new">+ New booking</button>
+      </div>
+    </div>
+
+    <div class="admin-tabs" id="admin-tabs" role="tablist" aria-label="Dashboard sections"></div>
+
+    <!-- Views are rendered into these containers by js/admin.js -->
+    <div class="admin-view" data-view="overview"   role="tabpanel"></div>
+    <div class="admin-view" data-view="bookings"  role="tabpanel"></div>
+    <div class="admin-view" data-view="calendar"  role="tabpanel"></div>
+    <div class="admin-view" data-view="enquiries" role="tabpanel"></div>
+    <div class="admin-view" data-view="services"  role="tabpanel"></div>
+    <div class="admin-view" data-view="portfolio" role="tabpanel"></div>
+    <div class="admin-view" data-view="revenue"   role="tabpanel"></div>
+    <div class="admin-view" data-view="settings"  role="tabpanel"></div>
+  </div>
+</div>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 13V1M1 6l5-5 5 5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+</button>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/render.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

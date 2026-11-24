@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Deposit &amp; Payment | TheDavidEze Photography</title>
+<meta name="description" content="Review your booking deposit and outstanding balance and complete payment for TheDavidEze Photography. Secure online payment via Paystack. Card details are never stored on this website.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="canonical" href="https://www.thedavideze.example/payment">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0B0B'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23B3945A'%3EDE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .pay-grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+  @media (min-width: 1040px) { .pay-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); } }
+  .paybox { background: #fff; border: 1px solid var(--line); padding: clamp(1.4rem, 2.6vw, 2.2rem); }
+  .method { display: grid; gap: .7rem; }
+  .method__item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center;
+    border: 1px solid var(--line); padding: 1.1rem 1.2rem; cursor: pointer;
+    transition: all var(--dur-fast) var(--ease);
+  }
+  .method__item:hover { border-color: rgba(11,11,11,.34); }
+  .method__item input { accent-color: var(--gold); width: 17px; height: 17px; }
+  .method__item[aria-checked="true"] { border-color: var(--gold-deep); background: var(--gold-wash); }
+  .method__name { font-family: var(--font-display); font-size: 1.15rem; }
+  .method__desc { font-size: .78rem; color: var(--taupe); }
+  .locked { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: start;
+            font-size: .78rem; color: var(--taupe); border-top: 1px solid var(--line); padding-top: 1rem; }
+</style>
+</head>
+<body data-page="payment">
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header is-solid">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html" aria-label="TheDavidEze Photography — home">
+      <span class="brand__mark" aria-hidden="true">DE</span>
+      <span class="brand__text"><span class="brand__name">TheDavidEze</span><span class="brand__tag">Photography</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link nav-link-underline" data-nav href="index.html">Home</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="about.html">About</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="portfolio.html">Portfolio</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="services.html">Services &amp; Pricing</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="faq.html">Client Care</a></li>
+        <li><a class="nav__link nav-link-underline" data-nav href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--gold btn--sm header-cta" href="booking.html">Book a session</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open navigation menu">
+      <span class="burger__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav class="drawer__nav" aria-label="Mobile navigation">
+    <a class="drawer__link" data-nav href="index.html"><span class="drawer__num">01</span> Home</a>
+    <a class="drawer__link" data-nav href="about.html"><span class="drawer__num">02</span> About</a>
+    <a class="drawer__link" data-nav href="portfolio.html"><span class="drawer__num">03</span> Portfolio</a>
+    <a class="drawer__link" data-nav href="services.html"><span class="drawer__num">04</span> Services &amp; Pricing</a>
+    <a class="drawer__link" data-nav href="faq.html"><span class="drawer__num">05</span> Client Care</a>
+    <a class="drawer__link" data-nav href="contact.html"><span class="drawer__num">06</span> Contact</a>
+    <a class="drawer__link" data-nav href="client-area.html"><span class="drawer__num">07</span> Client Area</a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--gold btn--block" href="booking.html">Book a session</a>
+    <div class="drawer__social" data-social="name"></div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="page-hero__bg" aria-hidden="true">
+      <img src="https://images.pexels.com/photos/18362428/pexels-photo-18362428.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="eager" decoding="async">
+    </div>
+    <div class="container">
+      <nav class="page-hero__crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> <span aria-hidden="true">/</span>
+        <a href="booking.html">Booking</a> <span aria-hidden="true">/</span> <span>Payment</span>
+      </nav>
+      <p class="eyebrow--onDark">Deposit &amp; Payment</p>
+      <h1 class="page-hero__title" style="margin-top:1rem">Secure your date<br><span class="display-serif-italic">with a deposit.</span></h1>
+      <p class="lead lead--light" style="margin-top:1.4rem;max-width:54ch">
+        A booking deposit reserves your date exclusively. This page is a demonstration interface — it is
+        <b>not</b> connected to a live payment gateway.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pay-title">
+    <div class="container">
+      <h1 class="sr-only" id="pay-title">Payment</h1>
+
+      <!-- No booking found -->
+      <div class="empty-state is-hidden" id="pay-empty">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+        </svg>
+        <p><b>No booking request in progress.</b></p>
+        <p class="text--xs" style="max-width:46ch">Start a booking request first — the deposit and balance shown here are
+          calculated from the package you select there.</p>
+        <a class="btn btn--gold btn--sm" href="booking.html">Start a booking request</a>
+      </div>
+
+      <div class="pay-grid is-hidden" id="pay-grid">
+
+        <!-- ============ LEFT: payment interface ============ -->
+        <div class="stack stack--lg">
+          <div class="notice notice--warn">
+            <span class="notice__ico" aria-hidden="true">!</span>
+            <p><b>Demonstration interface.</b> No payment can or will be taken on this page. This is a front-end
+               prototype of the payment experience only — it is <u>not</u> a live Paystack integration. No card
+               details are collected, transmitted or stored anywhere, at any point.</p>
+          </div>
+
+          <div class="paybox">
+            <p class="eyebrow">Step 01</p>
+            <h2 style="font-size:var(--step-2)">Choose a payment method</h2>
+            <p class="form-note">Card details are entered directly on the payment provider's hosted page — never on this website.</p>
+            <div class="method" role="radiogroup" aria-label="Payment method" id="methods" style="margin-top:1.5rem"></div>
+          </div>
+
+          <div class="paybox">
+            <p class="eyebrow">Step 02</p>
+            <h2 style="font-size:var(--step-2)">Billing reference</h2>
+            <div class="form" style="margin-top:1.4rem">
+              <div class="form-grid-2">
+                <div class="field">
+                  <label class="field__label" for="pay-name">Name on account</label>
+                  <input class="input" type="text" id="pay-name" readonly>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="pay-email">Notification email</label>
+                  <input class="input" type="email" id="pay-email" readonly>
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field">
+                  <label class="field__label" for="pay-ref">Booking reference</label>
+                  <input class="input" type="text" id="pay-ref" readonly>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="pay-date">Event date</label>
+                  <input class="input" type="text" id="pay-date" readonly>
+                </div>
+              </div>
+              <div class="locked">
+                <span aria-hidden="true">🔒</span>
+                <p><b>Never store card information.</b> PCI-DSS compliance is the payment provider's responsibility.
+                   This website only ever handles a transaction reference and a verification status returned by the
+                   gateway. Do not add card fields to this form.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="paybox">
+            <p class="eyebrow">Step 03</p>
+            <h2 style="font-size:var(--step-2)">Complete payment</h2>
+            <div class="form" style="margin-top:1.4rem">
+              <div class="field" data-field="amount">
+                <label class="field__label" for="pay-amount">Amount to pay now (₦)</label>
+                <input class="input" type="number" id="pay-amount" min="0" step="1000"
+                       aria-describedby="pay-amount-err pay-amount-hint">
+                <p class="field__hint" id="pay-amount-hint">Deposit by default. You may pay more if you prefer.</p>
+                <p class="field__error" id="pay-amount-err"></p>
+              </div>
+
+              <label class="check" for="pay-ack">
+                <input type="checkbox" id="pay-ack">
+                <span>I understand that this is a demonstration and that no payment will be processed.
+                  <span class="field__req">*</span></span>
+              </label>
+
+              <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.5rem">
+                <button class="btn btn--gold" type="button" id="pay-submit">Pay deposit securely</button>
+                <a class="btn btn--outline" href="faq.html#policies">Read the payment policy</a>
+              </div>
+              <div id="pay-result" role="status" aria-live="polite" style="display:grid;gap:1rem"></div>
+            </div>
+          </div>
+
+          <!-- Paystack integration notes -->
+          <div class="paybox">
+            <p class="eyebrow">Developer notes</p>
+            <h2 style="font-size:var(--step-1)">Paystack integration placeholder</h2>
+            <p class="form-note">Prepared for a Nigerian business. The blocks below describe exactly what must be built
+              before this becomes a real payment page.</p>
+
+            <div class="stack stack--sm" style="margin-top:1.4rem">
+              <div class="notice notice--ink" style="grid-template-columns:1fr">
+                <p style="font-size:.78rem"><b>1 — Verify callback server-side.</b> The Paystack signature header
+                  (<code>x-paystack-signature</code>) must be verified against your secret key on your own server.
+                  Never trust a client-side "success" response.</p>
+              </div>
+              <div class="notice notice--ink" style="grid-template-columns:1fr">
+                <p style="font-size:.78rem"><b>2 — Initialise the transaction on the server.</b> Call
+                  <code>POST https://api.paystack.co/transaction/initialize</code> from your backend with the amount
+                  in kobo, the customer's email and a callback URL. Return only the <code>authorization_url</code>
+                  to the browser.</p>
+              </div>
+              <div class="notice notice--ink" style="grid-template-columns:1fr">
+                <p style="font-size:.78rem"><b>3 — Redirect and verify.</b> After Paystack redirects back, call
+                  <code>GET /transaction/verify/:reference</code> on the server, confirm <code>status === "success"</code>
+                  and the amount matches, then mark the booking deposit as paid in your database.</p>
+              </div>
+              <div class="notice notice--ink" style="grid-template-columns:1fr">
+                <p style="font-size:.78rem"><b>4 — Keys.</b> Public key (<code>pk_…</code>) may appear in the browser.
+                  The secret key (<code>sk_…</code>) must live only in server environment variables — never in
+                  <code>config.js</code>, never in a repository.</p>
+              </div>
+            </div>
+
+            <pre style="margin-top:1.5rem;background:var(--ink);color:rgba(251,249,244,.85);padding:1.3rem;overflow-x:auto;font-size:.74rem;line-height:1.7;border-left:2px solid var(--gold)"><code>// server-side (Node.js example) — NOT part of this static build
+// npm i paystack-node express
+
+const Paystack = require("paystack-node")(process.env.PAYSTACK_SECRET_KEY);
+
+app.post("/api/bookings/:ref/pay", async (req, res) =&gt; {
+  const booking = await db.bookings.findByRef(req.params.ref);
+  if (!booking) return res.status(404).json({ error: "Booking not found" });
+
+  const { body } = await Paystack.initializeTransaction({
+    amount: booking.deposit * 100,          // Paystack expects kobo
+    email:  booking.email,
+    reference: booking.ref + "-" + Date.now(),
+    callback_url: `${process.env.SITE_URL}/payment?status=return`,
+    metadata: { ref: booking.ref, purpose: "booking-deposit" }
+  });
+  res.json({ authorization_url: body.data.authorization_url });
+});
+
+app.get("/api/payments/verify/:reference", async (req, res) =&gt; {
+  const { body } = await Paystack.verifyTransaction({ reference: req.params.reference });
+  if (body.data.status !== "success") return res.status(402).json({ paid: false });
+
+  // Verify the amount matches the booking deposit before trusting it
+  const booking = await db.bookings.findByRef(body.data.metadata.ref);
+  if (body.data.amount !== booking.deposit * 100) {
+    return res.status(400).json({ error: "Amount mismatch" });
+  }
+  await db.bookings.markDepositPaid(booking.ref, body.data.reference);
+  res.json({ paid: true, balance: booking.balance });
+});</code></pre>
+
+            <p class="form-note" style="margin-top:1.2rem">
+              Configuration lives in <code>CONFIG.commercial.payment</code> in <code>js/config.js</code>.
+              Set <code>enabled: true</code> and add your public key once the backend exists.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============ RIGHT: order summary ============ -->
+        <aside aria-labelledby="pay-sum">
+          <div class="summary">
+            <div>
+              <h2 id="pay-sum" style="font-size:var(--step-2);color:var(--paper)">Payment summary</h2>
+              <p class="summary-sticky-note">Figures are illustrative demonstration values.</p>
+            </div>
+            <div id="pay-summary"></div>
+            <div class="locked" style="border-color:rgba(251,249,244,.16);color:rgba(251,249,244,.6)">
+              <span aria-hidden="true">🔒</span>
+              <p>No card data is collected by this website. Payments are processed by the gateway's hosted checkout.</p>
+            </div>
+          </div>
+
+          <div class="paybox" style="margin-top:1.4rem">
+            <p class="eyebrow">Configuration</p>
+            <h2 style="font-size:var(--step-1)">Editable values</h2>
+            <ul class="stack--sm" style="font-size:.82rem;color:var(--charcoal);margin-top:1rem">
+              <li style="display:flex;justify-content:space-between;gap:1rem"><span>Deposit</span><b id="cfg-deposit">—</b></li>
+              <li style="display:flex;justify-content:space-between;gap:1rem"><span>Balance due</span><b id="cfg-balance-days">—</b></li>
+              <li style="display:flex;justify-content:space-between;gap:1rem"><span>Gateway</span><b>Paystack</b></li>
+              <li style="display:flex;justify-content:space-between;gap:1rem"><span>Status</span><b class="badge badge--pending">not configured</b></li>
+            </ul>
+            <p class="form-note" style="margin-top:1rem">All values are edited in <code>CONFIG.commercial</code>.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__bottom" style="margin-top:0;padding-top:3rem">
+      <p>© <span data-year>2026</span> TheDavidEze Photography. All rights reserved.</p>
+      <nav aria-label="Legal"><a href="faq.html#policies">Policies</a><a href="booking.html">Booking</a><a href="admin.html">Admin demo</a></nav>
+      <p>Designed &amp; engineered by <a href="#" style="border-bottom:1px solid rgba(251,249,244,.25)">TheVials Services</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 13V1M1 6l5-5 5 5" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+</button>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/render.js"></script>
+<script>
+/* ==========================================================================
+   Payment page — reads the demonstration booking from sessionStorage and
+   renders the deposit / balance split. No gateway is contacted.
+   ========================================================================== */
+(function () {
+  const METHODS = [
+    { id: "paystack-card",  name: "Card payment (Paystack)",
+      desc: "Visa, Mastercard, Verve — hosted checkout on Paystack's secure page.",
+      badge: "prepared" },
+    { id: "paystack-bank",  name: "Bank transfer (Paystack)",
+      desc: "Generate a one-time virtual account and transfer from any Nigerian bank.",
+      badge: "prepared" },
+    { id: "paystack-ussd",  name: "USSD",
+      desc: "Pay from a Nigerian bank account using a USSD short code.",
+      badge: "prepared" },
+    { id: "bank-direct",    name: "Direct bank transfer",
+      desc: "Studio account details shared privately after your booking is confirmed.",
+      badge: "manual" },
+  ];
+
+  let booking = null;
+  try { booking = JSON.parse(sessionStorage.getItem("tde_booking") || "null"); } catch (e) { booking = null; }
+
+  const grid = $("#pay-grid"), empty = $("#pay-empty");
+  if (!booking) { empty.classList.remove("is-hidden"); return; }
+  grid.classList.remove("is-hidden");
+
+  /* Payment methods */
+  $("#methods").innerHTML = METHODS.map((m, i) => `
+    <label class="method__item" for="m-${m.id}" aria-checked="${i === 0}">
+      <input type="radio" name="method" id="m-${m.id}" value="${m.id}" ${i === 0 ? "checked" : ""}>
+      <span>
+        <span class="method__name">${m.name}</span>
+        <span class="method__desc" style="display:block">${m.desc}</span>
+      </span>
+      <span class="badge ${m.badge === "manual" ? "badge--muted" : "badge--pending"}">${m.badge}</span>
+    </label>`).join("");
+
+  /* Read-only billing reference */
+  $("#pay-name").value  = booking.name || "";
+  $("#pay-email").value = booking.email || "";
+  $("#pay-ref").value   = booking.ref || "";
+  $("#pay-date").value  = UTIL.prettyDate(booking.date) + (booking.time ? " · " + booking.time : "");
+
+  /* Amount — deposit by default, editable upward */
+  const amount = $("#pay-amount");
+  amount.value = booking.deposit;
+  amount.max = booking.total;
+
+  /* Summary */
+  const row = (k, v) => `<div class="summary__row"><span>${k}</span><span>${v}</span></div>`;
+  $("#pay-summary").innerHTML =
+    row("Service", UTIL.esc(booking.service)) +
+    row("Package", UTIL.esc(booking.package)) +
+    row("Reference", UTIL.esc(booking.ref)) +
+    row("Estimated total", UTIL.naira(booking.total)) +
+    row("Deposit (" + booking.depositPercent + "%)", UTIL.naira(booking.deposit)) +
+    `<div class="summary__row summary__row--total"><span>Outstanding balance</span><span>${UTIL.naira(booking.balance)}</span></div>`;
+
+  /* Config readout */
+  $("#cfg-deposit").textContent = CONFIG.commercial.depositPercent + "% of total";
+  $("#cfg-balance-days").textContent = CONFIG.commercial.balanceDueDays + " days before event";
+
+  /* Method selection highlight */
+  $("#methods").addEventListener("change", e => {
+    $$(".method__item").forEach(l => l.setAttribute("aria-checked", String(l.querySelector("input").checked)));
+  });
+
+  /* Submit — validates, then explains rather than pretending */
+  $("#pay-submit").addEventListener("click", () => {
+    const field = $('[data-field="amount"]');
+    const err = $("#pay-amount-err");
+    field.classList.remove("is-invalid"); err.textContent = "";
+
+    const val = Number(amount.value);
+    if (!val || val < 1000) {
+      field.classList.add("is-invalid");
+      err.textContent = "Enter an amount of at least ₦1,000.";
+      amount.focus();
+      return;
+    }
+    if (val > booking.total) {
+      field.classList.add("is-invalid");
+      err.textContent = "The amount cannot exceed the estimated total of " + UTIL.naira(booking.total) + ".";
+      amount.focus();
+      return;
+    }
+    if (!$("#pay-ack").checked) {
+      APP.toast("Please confirm you understand this is a demonstration.", "err");
+      $("#pay-ack").focus();
+      return;
+    }
+
+    const out = $("#pay-result");
+    const btn = $("#pay-submit");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loader" aria-hidden="true"></span> Contacting gateway';
+    out.innerHTML = "";
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = "Pay deposit securely";
+
+      /* Deliberately NOT a success screen. This is the honest state:
+         nothing was charged, nothing was confirmed. */
+      out.innerHTML = `
+        <div class="notice notice--warn">
+          <span class="notice__ico" aria-hidden="true">✕</span>
+          <p><b>No payment has been made.</b> The payment gateway is not connected, so no transaction was created,
+             no card was charged and no payment has been confirmed. A real transaction cannot be simulated safely —
+             doing so would mislead a client into believing their date is reserved.</p>
+        </div>
+        <div class="notice notice--info">
+          <span class="notice__ico" aria-hidden="true">ℹ</span>
+          <p><b>What is required to make this live:</b></p>
+          <ul style="margin-top:.6rem;display:grid;gap:.4rem;font-size:.8rem">
+            <li>• A server-side endpoint that initialises a Paystack transaction and returns an
+                <code>authorization_url</code>.</li>
+            <li>• Redirect to that URL so the customer pays on Paystack's hosted, PCI-compliant checkout.</li>
+            <li>• A webhook that verifies Paystack's signature and the paid amount.</li>
+            <li>• Only then update the booking record to <em>deposit paid</em> and email a receipt.</li>
+          </ul>
+        </div>
+        <p class="form-note">Amount entered: <b>${UTIL.naira(val)}</b> · Reference <b>${UTIL.esc(booking.ref)}</b></p>`;
+
+      out.scrollIntoView({ behavior: "smooth", block: "center" });
+      APP.toast("Demonstration only — no payment was processed", "err");
+    }, 1400);
+  });
+})();
+</script>
+</body>
+</html>
